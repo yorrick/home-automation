@@ -8,13 +8,17 @@ import sys
 from email.mime.image import MIMEImage
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
+
+from ConfigParser import SafeConfigParser
+parser = SafeConfigParser()
+parser.read('settings.conf')
  
 SMTP_SERVER = 'smtp.gmail.com'
 SMTP_PORT = 587
  
-sender = 'yorrick.jansen@gmail.com'
-password = "3edcvfrtgb"
-recipient = 'yorrick.jansen@gmail.com'
+sender = parser.get('smtp', 'user')
+password = parser.get('smtp', 'password')
+recipient = sender
 subject = 'Python emaillib Test'
 video_name = sys.argv[1]
 message = 'Video created'
