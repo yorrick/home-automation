@@ -20,7 +20,7 @@ SMTP_PORT = 587
  
 sender = parser.get('smtp', 'user')
 password = parser.get('smtp', 'password')
-recipient = sender
+recipient = parser.get('smtp', 'recipient')
 subject = 'Python emaillib Test'
 video_name = sys.argv[1]
 message = 'Video created'
