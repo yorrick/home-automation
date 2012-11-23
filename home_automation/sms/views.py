@@ -47,7 +47,7 @@ def receive(request):
         r.sms('Voici ton message, peanut! ({0})'.format(request.POST.get('Body', '')))
         return r
     else:
-        return HttpResponseNotFound()
+        return HttpResponseNotFound('Could not find your stuff')
 
 
 @twilio_view

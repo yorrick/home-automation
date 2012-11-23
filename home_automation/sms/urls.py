@@ -1,6 +1,6 @@
 from django.conf.urls import url, patterns
 
-urlpatterns = patterns('twilio_test.sms.views',
+urlpatterns = patterns('home_automation.sms.views',
     url(r'^receive/$', 'receive', name='receive'),
     url(r'^answer/$', 'answer', name='answer'),
 )
