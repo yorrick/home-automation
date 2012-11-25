@@ -2,11 +2,13 @@
 from __future__ import absolute_import, unicode_literals
 
 import logging
-from django.http import HttpResponseNotFound
 
+from django.http import HttpResponseNotFound
 from django_twilio.decorators import twilio_view
 
 from twilio.twiml import Response
+
+from home_automation.sms.utils import get_motion_status
 
 
 logger = logging.getLogger(__name__)
@@ -45,6 +47,21 @@ def receive(request):
     if from_number in callers:
         r = Response()
         r.sms('Voici ton message, peanut! ({0})'.format(request.POST.get('Body', '')))
+        return r
+    else:
+        return HttpResponseNotFound('Could not find your stuff')
+
+
+@twilio_view
+def status(request):
+    logger.debug('Get params: {0}'.format(request.GET))
+    logger.debug('Post params: {0}'.format(request.POST))
+
+    from_number = request.POST.get('From', None)
+    if from_number in callers:
+        status = get_motion_status()
+        r = Response()
+        r.sms('Status for motion: {0}'.format(status))
         return r
     else:
         return HttpResponseNotFound('Could not find your stuff')
