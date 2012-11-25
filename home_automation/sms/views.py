@@ -58,8 +58,11 @@ def status(request):
     logger.debug('Post params: {0}'.format(request.POST))
 
     from_number = request.POST.get('From', None)
-    if from_number in callers:
+    # if from_number in callers:
+    if True:
+        logger.debug('getting motion status')
         status = get_motion_status()
+        logger.debug('got motion status: {0}'.format(status))
         r = Response()
         r.sms('Status for motion: {0}'.format(status))
         return r

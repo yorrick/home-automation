@@ -6,7 +6,7 @@ import requests
 from bs4 import BeautifulSoup
 
 
-MOTION_URL = 'http://localhost:8080'
+MOTION_URL = 'http://localhost:9000'
 
 
 def extract_readable_string(html):
