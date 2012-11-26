@@ -1,26 +1,39 @@
 # Django settings for home_automation project.
 
+import socket
+import sys
+import os
+
+
+MOTION_URL = ''
+""" Set this in production_settings.py or local_settings.py """
+
+
 DEBUG = True
 #DEBUG = False
 
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
+# ('Your Name', 'your_email@example.com'),
 )
 
 MANAGERS = ADMINS
 
+SITE_ROOT = os.path.dirname(os.path.realpath(__file__))
+db_name = os.path.abspath(os.path.join(SITE_ROOT, os.path.pardir)) + '/twilio_db'
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': '/home/webapp/apps/home_automation/twilio_db',                      # Or path to database file if using sqlite3.
+        'NAME': db_name,                      # Or path to database file if using sqlite3.
         'USER': 'dev',                      # Not used with sqlite3.
         'PASSWORD': 'dev2005ak',                  # Not used with sqlite3.
         'HOST': 'localhost',                      # Set to empty string for localhost. Not used with sqlite3.
         'PORT': '5432',                      # Set to empty string for default. Not used with sqlite3.
     }
 }
+
 
 
 # Local time zone for this installation. Choices can be found here:
@@ -67,9 +80,9 @@ STATIC_URL = '/static/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
-    # Put strings here, like "/home/html/static" or "C:/www/django/static".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
+# Put strings here, like "/home/html/static" or "C:/www/django/static".
+# Always use forward slashes, even on Windows.
+# Don't forget to use absolute paths, not relative paths.
 )
 
 # List of finder classes that know how to find static files in
@@ -77,8 +90,8 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
-)
+    #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    )
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = '^okpycn*s9hf=icbpsh04a&amp;f5tsmf+8*f0y7@n-ms+%s&amp;m^tnc'
@@ -87,8 +100,8 @@ SECRET_KEY = '^okpycn*s9hf=icbpsh04a&amp;f5tsmf+8*f0y7@n-ms+%s&amp;m^tnc'
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
-#     'django.template.loaders.eggs.Loader',
-)
+    #     'django.template.loaders.eggs.Loader',
+    )
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
@@ -98,17 +111,17 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
-)
+    )
 
 ROOT_URLCONF = 'home_automation.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
-WSGI_APPLICATION = 'home_automation.wsgi.application'
+WSGI_APPLICATION = 'home_automation.django_wsgi.application'
 
 TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
+# Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
+# Always use forward slashes, even on Windows.
+# Don't forget to use absolute paths, not relative paths.
 )
 
 INSTALLED_APPS = (
@@ -124,7 +137,7 @@ INSTALLED_APPS = (
     # 'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
-)
+    )
 
 TWILIO_ACCOUNT_SID = 'AC791403f3ec0098401e629d6aaf6b44bd'
 TWILIO_AUTH_TOKEN = 'b651d8ecfa6aa11ebab7a675a1f5cf49'
@@ -142,13 +155,13 @@ LOGGING = {
             '()': 'django.utils.log.RequireDebugFalse'
         }
     },
-#    'handlers': {
-#        'mail_admins': {
-#            'level': 'ERROR',
-#            'filters': ['require_debug_false'],
-#            'class': 'django.utils.log.AdminEmailHandler'
-#        }
-#    },
+    #    'handlers': {
+    #        'mail_admins': {
+    #            'level': 'ERROR',
+    #            'filters': ['require_debug_false'],
+    #            'class': 'django.utils.log.AdminEmailHandler'
+    #        }
+    #    },
     'formatters': {
         'verbose': {
             'format': '%(levelname)s %(asctime)s %(module)s %(process)d %(thread)d %(message)s'
@@ -163,17 +176,32 @@ LOGGING = {
             'class': 'logging.StreamHandler',
             'formatter': 'simple'
         },
-    },
+        },
     'loggers': {
         'django.request': {
-#            'handlers': ['mail_admins'],
+            #            'handlers': ['mail_admins'],
             'handlers': ['console'],
             'level': 'ERROR',
             'propagate': True,
-        },
+            },
         'home_automation': {
             'handlers': ['console'],
             'level': 'DEBUG',
-        }
+            }
     },
-}
+    }
+
+PRODUCTION_HOSTS = set(['192.168.2.2'])
+
+settings_module = sys.modules[__name__]
+hostname = socket.gethostname()
+
+if hostname in PRODUCTION_HOSTS:
+    from home_automation.settings.production_settings import configure
+    configure(settings_module)
+else:
+    try:
+        from home_automation.settings.local_settings import configure
+        configure(settings_module)
+    except ImportError:
+        pass
