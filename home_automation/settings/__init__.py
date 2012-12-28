@@ -27,8 +27,8 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
         'NAME': db_name,                      # Or path to database file if using sqlite3.
-        'USER': 'dev',                      # Not used with sqlite3.
-        'PASSWORD': 'dev2005ak',                  # Not used with sqlite3.
+        'USER': '',                      # Not used with sqlite3.
+        'PASSWORD': '',                  # Not used with sqlite3.
         'HOST': 'localhost',                      # Set to empty string for localhost. Not used with sqlite3.
         'PORT': '5432',                      # Set to empty string for default. Not used with sqlite3.
     }
@@ -132,6 +132,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_twilio',
+    'django_ztask',
     'home_automation.sms',
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
@@ -141,6 +142,19 @@ INSTALLED_APPS = (
 
 TWILIO_ACCOUNT_SID = 'AC791403f3ec0098401e629d6aaf6b44bd'
 TWILIO_AUTH_TOKEN = 'b651d8ecfa6aa11ebab7a675a1f5cf49'
+
+ZTASKD_URL = 'tcp://127.0.0.1:5555'
+ZTASKD_ALWAYS_EAGER = False
+ZTASKD_DISABLED = False
+ZTASKD_RETRY_COUNT = 5
+ZTASKD_RETRY_AFTER = 5
+ZTASKD_ON_LOAD = ()
+
+MAIL_SERVER_HOST = ''
+MAIL_SERVER_PORT = ''
+MAIL_SERVER_LOGIN = ''
+MAIL_SERVER_PASSWORD = ''
+MAIL_RECIPIENT = ''
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to

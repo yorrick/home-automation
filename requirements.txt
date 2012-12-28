@@ -4,14 +4,15 @@ argparse==1.2.1
 beautifulsoup4==4.1.3
 distribute==0.6.24
 django-twilio==0.4
-git+git://github.com/odeoncg/django-ztask-odeon.git@0.1.4#egg=django-ztask
 
+# git+git://github.com/odeoncg/django-ztask-odeon.git@0.1.4#egg=django-ztask==0.1.4
 # git+git@github.com:awesomo/django-ztaskq.git#egg=django_ztaskq
+django_ztask==0.1.5
+pyzmq==2.2.0.1
 
 httplib2==0.7.7
 ipython==0.13.1
 # psycopg2==2.4.5
-pyzmq==2.2.0.1
 requests==0.14.2
 twilio==3.4.1
 wsgiref==0.1.2

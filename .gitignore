@@ -36,3 +36,5 @@ nosetests.xml
 .pydevproject
 settings.conf
 twilio_db
+production_settings.*
+local_settings.*

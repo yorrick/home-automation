@@ -18,5 +18,6 @@ urlpatterns = patterns('',
 )
 
 urlpatterns += patterns('',
-    url(r'^sms/', include('home_automation.sms.urls', namespace='cms')),
+    url(r'^sms/', include('home_automation.sms.urls', namespace='sms')),
+    url(r'^motion/', include('home_automation.motion.urls', namespace='motion')),
 )
