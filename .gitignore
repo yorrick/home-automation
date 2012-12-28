@@ -38,3 +38,4 @@ settings.conf
 twilio_db
 production_settings.*
 local_settings.*
+home_automation/motion-dir/*

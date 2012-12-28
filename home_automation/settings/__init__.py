@@ -140,8 +140,8 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     )
 
-TWILIO_ACCOUNT_SID = 'AC791403f3ec0098401e629d6aaf6b44bd'
-TWILIO_AUTH_TOKEN = 'b651d8ecfa6aa11ebab7a675a1f5cf49'
+TWILIO_ACCOUNT_SID = ''
+TWILIO_AUTH_TOKEN = ''
 
 ZTASKD_URL = 'tcp://127.0.0.1:5555'
 ZTASKD_ALWAYS_EAGER = False
@@ -155,6 +155,9 @@ MAIL_SERVER_PORT = ''
 MAIL_SERVER_LOGIN = ''
 MAIL_SERVER_PASSWORD = ''
 MAIL_RECIPIENT = ''
+MAIL_SEND_VIDEO = True
+MAIL_PICTURE_NUMBER = 5
+MOTION_DIRECTORY = '/tmp/motion/'
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
