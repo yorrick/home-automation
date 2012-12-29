@@ -208,7 +208,7 @@ LOGGING = {
     },
     }
 
-PRODUCTION_HOSTS = set(['192.168.2.2'])
+PRODUCTION_HOSTS = set(['192.168.2.2', 'raspberrypi'])
 
 settings_module = sys.modules[__name__]
 hostname = socket.gethostname()
